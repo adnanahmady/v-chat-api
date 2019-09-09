@@ -15,7 +15,12 @@ class CreateViewsTable extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('viewable_id');
+            $table->string('viewable_type');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +31,10 @@ class CreateViewsTable extends Migration
      */
     public function down()
     {
+        Schema::table('views', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+        });
+        
         Schema::dropIfExists('views');
     }
 }

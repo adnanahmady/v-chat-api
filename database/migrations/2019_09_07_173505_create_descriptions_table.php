@@ -15,7 +15,12 @@ class CreateDescriptionsTable extends Migration
     {
         Schema::create('descriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('video_id');
+            $table->string('title', 200);
+            $table->longText('description')->nullable();
             $table->timestamps();
+
+            $table->foreign('video_id')->references('id')->on('videos');
         });
     }
 
@@ -26,6 +31,10 @@ class CreateDescriptionsTable extends Migration
      */
     public function down()
     {
+        Schema::table('descriptions', function(Blueprint $table) {
+            $table->dropForeign('video_id');
+        });
+
         Schema::dropIfExists('descriptions');
     }
 }

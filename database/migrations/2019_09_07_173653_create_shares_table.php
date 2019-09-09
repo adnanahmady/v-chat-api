@@ -15,7 +15,12 @@ class CreateSharesTable extends Migration
     {
         Schema::create('shares', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('shareable_id');
+            $table->string('shareable_type');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +31,10 @@ class CreateSharesTable extends Migration
      */
     public function down()
     {
+        Schema::table('shares', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+        });
+
         Schema::dropIfExists('shares');
     }
 }

@@ -15,7 +15,12 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('name', 100);
+            $table->longText('bio')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +31,9 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
+        Schema::table('profiles', function(Blueprint $table) {
+            $table->dropForeign('user_id');
+        });
         Schema::dropIfExists('profiles');
     }
 }

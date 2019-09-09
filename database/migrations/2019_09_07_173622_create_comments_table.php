@@ -15,7 +15,13 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->longText('content');
+            $table->unsignedBigInteger('commentable_id');
+            $table->string('commentable_type');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +32,10 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+        });
+
         Schema::dropIfExists('comments');
     }
 }

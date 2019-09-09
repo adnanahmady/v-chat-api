@@ -15,7 +15,12 @@ class CreateVideosTable extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->longText('path');
+            $table->enum('access', ['public', 'protected', 'private'])->default('public');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +31,10 @@ class CreateVideosTable extends Migration
      */
     public function down()
     {
+        Schema::table('videos', function(Blueprint $table) {
+            $table->dropForeign('user_id');
+        });
+
         Schema::dropIfExists('videos');
     }
 }

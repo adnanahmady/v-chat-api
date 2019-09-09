@@ -15,7 +15,12 @@ class CreateAvatarsTable extends Migration
     {
         Schema::create('avatars', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('profile_id');
+            $table->longText('path');
+            $table->string('title', 200);
             $table->timestamps();
+
+            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 
@@ -26,6 +31,10 @@ class CreateAvatarsTable extends Migration
      */
     public function down()
     {
+        Schema::table('avatars', function (Blueprint $table) {
+            $table->dropForeign('profile_id');
+        });
+
         Schema::dropIfExists('avatars');
     }
 }
