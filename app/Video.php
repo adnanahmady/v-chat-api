@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Video extends Model
 {
     /**
+     * Set fillable Columns
+     * @var array
+     */
+    protected $fillable = [
+        'path', 'access'
+    ];
+
+    /**
      * Get Owner User
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'bio'
+    ];
+
+    /**
      * Get Profiles User
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
