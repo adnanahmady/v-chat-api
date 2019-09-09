@@ -1,7 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: adnan
- * Date: 9/9/19
- * Time: 7:51 PM
- */
+
+function isAssoc(array $array)
+{
+    return count(array_filter(array_keys($array), 'is_string')) > 0;
+}
