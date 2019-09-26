@@ -25,6 +25,20 @@ class Comment extends Model
         return $this->morphTo();
     }
 
+    public function replies()
+    {
+        return $this
+            ->morphToMany(static::class, 'commentable')
+            ;
+    }
+
+    public function likes()
+    {
+        return $this
+            ->morphToMany(Like::class, 'likable')
+            ;
+    }
+
     /**
      * Get the user that Commented
      *

@@ -15,11 +15,21 @@ class Video extends Model
     ];
 
     /**
+     * Get Videos Description
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function description()
+    {
+        return $this->hasOne(Description::class);
+    }
+
+    /**
      * Get Owner User
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Owner()
+    public function owner()
     {
         return $this->belongsTo(User::class);
     }
