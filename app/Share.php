@@ -25,4 +25,16 @@ class Share extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get The User that is consuming sharable resource
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function consumer()
+    {
+        return $this
+            ->belongsTo(User::class, 'consumer_id')
+            ;
+    }
 }
