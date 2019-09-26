@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('activated_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
