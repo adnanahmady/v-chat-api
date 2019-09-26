@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +37,21 @@ class User extends Authenticatable
     protected $casts = [
         'activated_at' => 'datetime',
     ];
+
+    /**
+     * Get Activated Or Not Activated User
+     *
+     * @param      $query
+     * @param bool $isActivate
+     *
+     * @return mixed
+     */
+    public function scopeActivated($query, $isActivate = TRUE)
+    {
+        $cond = $isActivate ? '<>' : '=';
+
+        return $query->where('activated_at', $cond, NULL);
+    }
 
     /**
      * Every User has one profile for it self
@@ -104,7 +120,10 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class)->using(RoleUser::class);
+        return $this
+            ->belongsToMany(Role::class)
+            ->using(RoleUser::class)
+            ->withTimestamps();
     }
 
     /**
