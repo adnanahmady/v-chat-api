@@ -32,7 +32,7 @@ class CreateAvatarsTable extends Migration
     public function down()
     {
         Schema::table('avatars', function (Blueprint $table) {
-            $table->dropForeign('profile_id');
+            $table->dropForeign(['profile_id']);
         });
 
         Schema::dropIfExists('avatars');

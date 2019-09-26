@@ -32,7 +32,7 @@ class CreateVideosTable extends Migration
     public function down()
     {
         Schema::table('videos', function(Blueprint $table) {
-            $table->dropForeign('user_id');
+            $table->dropForeign(['user_id']);
         });
 
         Schema::dropIfExists('videos');

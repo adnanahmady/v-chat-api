@@ -32,7 +32,7 @@ class CreateDescriptionsTable extends Migration
     public function down()
     {
         Schema::table('descriptions', function(Blueprint $table) {
-            $table->dropForeign('video_id');
+            $table->dropForeign(['video_id']);
         });
 
         Schema::dropIfExists('descriptions');
