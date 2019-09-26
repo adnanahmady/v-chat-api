@@ -37,10 +37,11 @@
         },
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "app/Helpers/Contracts"
         ],
         "files": [
-            "app/Helpers/ArrayFunctions.php"
+            "app/Helpers/Functions/Arrays.php"
         ]
     },
     "autoload-dev": {
