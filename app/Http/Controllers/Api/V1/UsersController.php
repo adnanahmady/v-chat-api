@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Resources\UsersResourceCollection;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return response()->json(['message' => 'hello']);
+        return response()->json(['data' => new UsersResourceCollection(User::paginate(30))]);
     }
 
     /**
